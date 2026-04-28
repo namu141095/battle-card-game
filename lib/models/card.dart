@@ -1,6 +1,6 @@
 import 'dart:math';
 
-class Card {
+class BattleCard {
   final String id;
   final String name;
   final String type; // fire, water, grass, electric
@@ -9,7 +9,7 @@ class Card {
   final int defense;
   final String description;
 
-  Card({
+  BattleCard({
     required this.id,
     required this.name,
     required this.type,
@@ -36,7 +36,7 @@ class Card {
   }
 
   // Calculate damage based on attack and defense
-  static int calculateDamage(Card attacker, Card defender) {
+  static int calculateDamage(BattleCard attacker, BattleCard defender) {
     final baseDamage = attacker.attack;
     final defenseFactor = 1 - (defender.defense / 100);
     final variance = Random().nextDouble() * 0.2 - 0.1; // ±10%
@@ -58,6 +58,30 @@ class Card {
     if (attackerType == 'electric' && defenderType == 'grass') return 0.5;
     
     return 1.0;
+  }
+
+  // Get card image path based on card name
+  String getCardImagePath() {
+    switch (name.toLowerCase()) {
+      case 'blaze dragon':
+        return 'assets/images/blaze_dragon.svg';
+      case 'wave guardian':
+        return 'assets/images/wave_guardian.svg';
+      case 'forest protector':
+        return 'assets/images/forest_protector.svg';
+      case 'thunder beast':
+        return 'assets/images/thunder_beast.svg';
+      case 'inferno salamander':
+        return 'assets/images/inferno_salamander.svg';
+      case 'tidal leviathan':
+        return 'assets/images/tidal_leviathan.svg';
+      case 'verdant golem':
+        return 'assets/images/verdant_golem.svg';
+      case 'volt phoenix':
+        return 'assets/images/volt_phoenix.svg';
+      default:
+        return 'assets/images/fire_icon.svg';
+    }
   }
 
   // Get available moves

@@ -3,8 +3,8 @@ import 'card.dart';
 class Player {
   final String id;
   final String name;
-  List<Card> deck;
-  Card? activeCard;
+  List<BattleCard> deck;
+  BattleCard? activeCard;
   int score;
   int cardsDefeated;
 
@@ -21,7 +21,7 @@ class Player {
   int get remainingCards => deck.length;
 
   // Draw a random card from deck
-  Card? drawCard() {
+  BattleCard? drawCard() {
     if (deck.isEmpty) {
       return null;
     }
@@ -30,7 +30,7 @@ class Player {
   }
 
   // Set active card for battle
-  void setActiveCard(Card card) {
+  void setActiveCard(BattleCard card) {
     activeCard = card;
   }
 

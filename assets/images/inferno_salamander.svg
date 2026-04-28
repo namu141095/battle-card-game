@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280">
+  <defs>
+    <linearGradient id="inferno1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF8C00;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#FF4500;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B0000;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="infernoGlow" cx="40%" cy="40%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#8B0000;stop-opacity:0.3" />
+    </radialGradient>
+  </defs>
+  
+  <rect width="200" height="280" fill="url(#inferno1)" rx="8"/>
+  <rect x="4" y="4" width="192" height="272" fill="none" stroke="#FF8C00" stroke-width="2" rx="6"/>
+  
+  <rect x="8" y="8" width="184" height="32" fill="#fff" opacity="0.9" rx="4"/>
+  <text x="16" y="28" font-family="Arial" font-size="14" font-weight="bold" fill="#8B0000">Inferno Salamander</text>
+  <rect x="130" y="12" width="50" height="24" fill="#8B0000" rx="3"/>
+  <text x="160" y="27" font-family="Arial" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">FIRE</text>
+  
+  <rect x="10" y="45" width="180" height="140" fill="url(#infernoGlow)" rx="4"/>
+  
+  <!-- Salamander body -->
+  <ellipse cx="100" cy="110" rx="35" ry="25" fill="#FF4500"/>
+  <circle cx="75" cy="85" r="15" fill="#FF6347"/>
+  <circle cx="125" cy="85" r="15" fill="#FF6347"/>
+  <circle cx="100" cy="125" r="12" fill="#FF8C00"/>
+  
+  <!-- Flame patterns -->
+  <path d="M 65 70 Q 60 50 70 60 Q 75 75 65 70" fill="#FFD700" opacity="0.9"/>
+  <path d="M 135 70 Q 140 50 130 60 Q 125 75 135 70" fill="#FFD700" opacity="0.9"/>
+  <path d="M 100 55 Q 95 35 105 45 Q 110 65 100 55" fill="#FFA500" opacity="0.9"/>
+  
+  <!-- Eyes -->
+  <circle cx="85" cy="75" r="3" fill="#000"/>
+  <circle cx="115" cy="75" r="3" fill="#000"/>
+  
+  <rect x="10" y="190" width="180" height="50" fill="#fff" opacity="0.85" rx="3"/>
+  <text x="16" y="207" font-family="Arial" font-size="10" font-weight="bold" fill="#333">HP: 115</text>
+  <text x="16" y="222" font-family="Arial" font-size="10" font-weight="bold" fill="#333">ATK: 100 | DEF: 75</text>
+  <text x="16" y="237" font-family="Arial" font-size="9" fill="#666">Ancient fire spirit strength</text>
+  
+  <rect x="8" y="248" width="184" height="24" fill="#8B0000" rx="3"/>
+  <text x="100" y="263" font-family="Arial" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">⚔ Battle Card</text>
+</svg>

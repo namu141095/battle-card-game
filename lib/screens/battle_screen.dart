@@ -10,8 +10,10 @@ class BattleScreen extends StatefulWidget {
   State<BattleScreen> createState() => _BattleScreenState();
 }
 
-class _BattleScreenState extends State<BattleScreen> {
+class _BattleScreenState extends State<BattleScreen> with TickerProviderStateMixin {
   late BattleState battleState;
+  late AnimationController _shakeController;
+  late AnimationController _logAnimationController;
 
   @override
   void initState() {
@@ -19,6 +21,25 @@ class _BattleScreenState extends State<BattleScreen> {
     final player1 = Player(id: '1', name: 'Player 1', deck: []);
     final player2 = Player(id: '2', name: 'AI Opponent', deck: []);
     battleState = BattleState(player1: player1, player2: player2);
+    
+    // Shake animation for damage feedback
+    _shakeController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    
+    // Battle log fade/slide animation
+    _logAnimationController = AnimationController(
+      duration: const Duration(milliseconds: 800),
+      vsync: this,
+    );
+  }
+
+  @override
+  void dispose() {
+    _shakeController.dispose();
+    _logAnimationController.dispose();
+    super.dispose();
   }
 
   void _handleAttack(String moveType) {
@@ -26,6 +47,8 @@ class _BattleScreenState extends State<BattleScreen> {
 
     setState(() {
       battleState.attack(moveType);
+      _shakeController.forward().then((_) => _shakeController.reverse());
+      _logAnimationController.forward(from: 0.0);
       
       // AI makes automatic move after short delay
       if (!battleState.isBattleOver) {
@@ -35,6 +58,8 @@ class _BattleScreenState extends State<BattleScreen> {
               final moves = ['quick', 'special', 'defense'];
               final randomMove = moves[(DateTime.now().millisecondsSinceEpoch % 3).toInt()];
               battleState.attack(randomMove);
+              _shakeController.forward().then((_) => _shakeController.reverse());
+              _logAnimationController.forward(from: 0.0);
             });
           }
         });
@@ -133,21 +158,28 @@ class _BattleScreenState extends State<BattleScreen> {
 
                 const SizedBox(height: 40),
 
-                // Battle Log
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.white30),
-                  ),
-                  child: Text(
-                    state['battleLog'] ?? 'Battle started! Ready to fight?',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                      height: 1.5,
+                // Battle Log with fade and scale animation
+                ScaleTransition(
+                  scale: Tween<double>(begin: 0.8, end: 1.0)
+                      .animate(CurvedAnimation(parent: _logAnimationController, curve: Curves.elasticOut)),
+                  child: FadeTransition(
+                    opacity: _logAnimationController,
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.5),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.white30),
+                      ),
+                      child: Text(
+                        state['battleLog'] ?? 'Battle started! Ready to fight?',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          height: 1.5,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -334,29 +366,87 @@ class _BattleScreenState extends State<BattleScreen> {
     Color color,
     VoidCallback onPressed,
   ) {
-    return ElevatedButton(
+    return _AnimatedActionButton(
+      label: label,
+      icon: icon,
+      color: color,
       onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: color,
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-      ),
-      child: Column(
-        children: [
-          Icon(icon, color: Colors.white, size: 24),
-          const SizedBox(height: 5),
-          Text(
-            label,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
+    );
+  }
+}
+
+class _AnimatedActionButton extends StatefulWidget {
+  final String label;
+  final IconData icon;
+  final Color color;
+  final VoidCallback onPressed;
+
+  const _AnimatedActionButton({
+    required this.label,
+    required this.icon,
+    required this.color,
+    required this.onPressed,
+  });
+
+  @override
+  State<_AnimatedActionButton> createState() => _AnimatedActionButtonState();
+}
+
+class _AnimatedActionButtonState extends State<_AnimatedActionButton> with SingleTickerProviderStateMixin {
+  late AnimationController _pressController;
+  late Animation<double> _pressAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _pressController = AnimationController(
+      duration: const Duration(milliseconds: 200),
+      vsync: this,
+    );
+    _pressAnimation = Tween<double>(begin: 1.0, end: 0.9).animate(
+      CurvedAnimation(parent: _pressController, curve: Curves.easeOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _pressController.dispose();
+    super.dispose();
+  }
+
+  void _handlePressed() {
+    _pressController.forward().then((_) => _pressController.reverse());
+    widget.onPressed();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ScaleTransition(
+      scale: _pressAnimation,
+      child: ElevatedButton(
+        onPressed: _handlePressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: widget.color,
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
           ),
-        ],
+        ),
+        child: Column(
+          children: [
+            Icon(widget.icon, color: Colors.white, size: 24),
+            const SizedBox(height: 5),
+            Text(
+              widget.label,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280">
+  <defs>
+    <linearGradient id="waterCardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#00BFFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#004E89;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="waveGlow" cx="40%" cy="40%">
+      <stop offset="0%" style="stop-color:#E0FFFF;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#0077B6;stop-opacity:0.3" />
+    </radialGradient>
+  </defs>
+  
+  <rect width="200" height="280" fill="url(#waterCardGrad)" rx="8"/>
+  <rect x="4" y="4" width="192" height="272" fill="none" stroke="#87CEEB" stroke-width="2" rx="6"/>
+  
+  <rect x="8" y="8" width="184" height="32" fill="#fff" opacity="0.9" rx="4"/>
+  <text x="16" y="28" font-family="Arial" font-size="16" font-weight="bold" fill="#004E89">Wave Guardian</text>
+  <rect x="130" y="12" width="50" height="24" fill="#004E89" rx="3"/>
+  <text x="160" y="27" font-family="Arial" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">WATER</text>
+  
+  <rect x="10" y="45" width="180" height="140" fill="url(#waveGlow)" rx="4"/>
+  
+  <!-- Wave creature body -->
+  <ellipse cx="100" cy="100" rx="40" ry="35" fill="#0077B6"/>
+  <circle cx="100" cy="75" r="22" fill="#0096C7"/>
+  
+  <!-- Water droplet eyes -->
+  <path d="M 90 70 Q 85 65 90 60 Q 95 65 90 70" fill="#00B4D8"/>
+  <path d="M 110 70 Q 105 65 110 60 Q 115 65 110 70" fill="#00B4D8"/>
+  
+  <!-- Waves around creature -->
+  <path d="M 60 95 Q 70 85 80 95" stroke="#00B4D8" stroke-width="2" fill="none"/>
+  <path d="M 120 95 Q 130 85 140 95" stroke="#00B4D8" stroke-width="2" fill="none"/>
+  <path d="M 55 115 Q 70 105 85 115" stroke="#00B4D8" stroke-width="2" fill="none"/>
+  <path d="M 115 115 Q 130 105 145 115" stroke="#00B4D8" stroke-width="2" fill="none"/>
+  
+  <rect x="10" y="190" width="180" height="50" fill="#fff" opacity="0.85" rx="3"/>
+  <text x="16" y="207" font-family="Arial" font-size="10" font-weight="bold" fill="#333">HP: 110</text>
+  <text x="16" y="222" font-family="Arial" font-size="10" font-weight="bold" fill="#333">ATK: 85 | DEF: 90</text>
+  <text x="16" y="237" font-family="Arial" font-size="9" fill="#666">Master of water with defense</text>
+  
+  <rect x="8" y="248" width="184" height="24" fill="#004E89" rx="3"/>
+  <text x="100" y="263" font-family="Arial" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">⚔ Battle Card</text>
+</svg>

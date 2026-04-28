@@ -37,9 +37,9 @@ class BattleState {
     }
   }
 
-  List<Card> _generateSampleCards() {
+  List<BattleCard> _generateSampleCards() {
     return [
-      Card(
+      BattleCard(
         id: '1',
         name: 'Blaze Dragon',
         type: 'fire',
@@ -48,7 +48,7 @@ class BattleState {
         defense: 80,
         description: 'A powerful fire dragon with devastating attacks',
       ),
-      Card(
+      BattleCard(
         id: '2',
         name: 'Wave Guardian',
         type: 'water',
@@ -57,7 +57,7 @@ class BattleState {
         defense: 90,
         description: 'Masters of water with strong defense',
       ),
-      Card(
+      BattleCard(
         id: '3',
         name: 'Forest Protector',
         type: 'grass',
@@ -66,7 +66,7 @@ class BattleState {
         defense: 85,
         description: 'Nature guardian with balanced stats',
       ),
-      Card(
+      BattleCard(
         id: '4',
         name: 'Thunder Beast',
         type: 'electric',
@@ -75,7 +75,7 @@ class BattleState {
         defense: 70,
         description: 'Fastest attacker with high power',
       ),
-      Card(
+      BattleCard(
         id: '5',
         name: 'Inferno Salamander',
         type: 'fire',
@@ -84,7 +84,7 @@ class BattleState {
         defense: 75,
         description: 'Ancient fire spirit with great strength',
       ),
-      Card(
+      BattleCard(
         id: '6',
         name: 'Tidal Leviathan',
         type: 'water',
@@ -93,7 +93,7 @@ class BattleState {
         defense: 95,
         description: 'Largest water creature, very defensive',
       ),
-      Card(
+      BattleCard(
         id: '7',
         name: 'Verdant Golem',
         type: 'grass',
@@ -102,7 +102,7 @@ class BattleState {
         defense: 100,
         description: 'Stone-like grass creature with high defense',
       ),
-      Card(
+      BattleCard(
         id: '8',
         name: 'Volt Phoenix',
         type: 'electric',
@@ -142,10 +142,10 @@ class BattleState {
     final defender = opponent.activeCard!;
 
     // Calculate damage
-    int damage = Card.calculateDamage(attacker, defender);
+    int damage = BattleCard.calculateDamage(attacker, defender);
     
     // Apply type advantage
-    final typeAdvantage = Card.getTypeAdvantage(attacker.type, defender.type);
+    final typeAdvantage = BattleCard.getTypeAdvantage(attacker.type, defender.type);
     damage = (damage * typeAdvantage).toInt();
 
     // Apply move modifier
